@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  express_app:
+    image: express_app:1.0
+    build:
+      dockerfile: ./Dockerfile
+    environment:
+      ENV: production
+    ports:
+      - 8000:3000
