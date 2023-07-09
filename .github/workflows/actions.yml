@@ -10,14 +10,16 @@ on:
         required: true
         type: choice
         default: "develop"
-        options: -develop
+        options:
+          - develop
       environment:
         description: "Select environment"
         required: true
         type: choice
         default: "staging"
-        options: -staging
-          -production
+        options:
+          - staging
+          - production
 
 jobs:
   build:
@@ -25,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{input.branch_name}}
+          ref: ${{inputs.branch_name}}
 
       - run: npm i
-      - run: npm run build:${{input.environment}} --if present
+      - run: npm run build:${{inputs.environment}} --if present
