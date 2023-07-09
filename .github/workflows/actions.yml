@@ -1,0 +1,31 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: "Select branch"
+        required: true
+        type: choice
+        default: "develop"
+        options: -develop
+      environment:
+        description: "Select environment"
+        required: true
+        type: choice
+        default: "staging"
+        options: -staging
+          -production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{input.branch_name}}
+
+      - run: npm i
+      - run: npm run build:${{input.environment}} --if present
